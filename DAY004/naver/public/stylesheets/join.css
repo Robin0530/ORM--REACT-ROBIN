@@ -1,0 +1,15 @@
+#wrap {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.content {
+    width: 480px;
+    text-align: center;
+    margin: 5rem auto 0;
+}
+
+.logo {
+    float: left;
+    width: 150px;
+}
