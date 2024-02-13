@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>구구단 표 생성기</title>
+
+  <link rel="stylesheet" href="../CSS/multiplication.css">
+</head>
+<body>
+
+  <h2>구구단 표 생성기</h2>
+
+  <table id="multiplicationTable">
+    <!-- 결과가 표시될 테이블 -->
+  </table>
+
+  <script>
+    // 결과를 표시할 테이블 가져오기
+    var multiplicationTable = document.getElementById('multiplicationTable');
+
+    // 구구단 계산 및 표시
+    for (var i = 1; i <= 9; i++) {
+      // 새로운 행을 추가
+      var row = multiplicationTable.insertRow();
+
+      // 2~5단까지는 첫 번째 가로 영역에, 6~9단까지는 두 번째 가로 영역에 표시
+      for (var j = 2; j <= 9; j++) {
+        // 각 셀에 내용 추가
+        var cell = row.insertCell();
+
+        if ((j <= 5 && i <= 5) || (j > 5 && i > 5)) {
+          // 2~5단까지는 같은 가로 영역에, 6~9단까지는 두 번째 가로 영역에 표시
+          cell.innerHTML = j + ' x ' + i + ' = ' + (j * i);
+        } else {
+          // 해당 조건에 맞지 않는 경우는 빈 문자열로 채움
+          cell.innerHTML = '';
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
