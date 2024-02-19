@@ -1,63 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>공지수정</title>
-    <link rel="stylesheet" href="./css/index.css">
-</head>
-<body>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
     <!-- 전체 공지 수정화면 영역 -->
     <div class="board_wrap">
-        <!-- 페이지 제목 표시 영역 -->
-        <div class="board_title">
-            <strong>공지사항</strong>
-            <p>공지사항을 수정합니다.</p>
+      <!-- 페이지 제목 표시 영역 -->
+      <div class="board_title">
+        <strong>공지사항</strong>
+        <p>공지사항을 수정합니다.</p>
+      </div>
+
+      <!-- 공지수정 화면 영역 -->
+      <div class="board_write_wrap">
+        <!-- 사용자 공지입력요소 표시 영역 -->
+        <div class="board_write">
+          <!-- 제목입력 영역 -->
+          <div class="title">
+            <dl>
+              <dt>제목</dt>
+              <dd>
+                <input type="text" id="title" placeholder="제목" value="" />
+              </dd>
+            </dl>
+          </div>
+          <!-- 글쓴이-비밀번호 입력 영역 -->
+          <div class="info">
+            <dl>
+              <dt>글쓴이</dt>
+              <dd>
+                <input type="text" id="writer" placeholder="글쓴이" value="" />
+              </dd>
+            </dl>
+            <dl>
+              <dt>비밀번호</dt>
+              <dd>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="비밀번호"
+                  value=""
+                />
+              </dd>
+            </dl>
+          </div>
+          <!-- 글내용 입력 영역 -->
+          <div class="cont">
+            <textarea placeholder="글내용" id="contents"></textarea>
+          </div>
         </div>
 
-        <!-- 공지수정 화면 영역 -->
-        <div class="board_write_wrap">
-            <!-- 사용자 공지입력요소 표시 영역 -->
-            <div class="board_write">
-                <!-- 제목입력 영역 -->
-                <div class="title">
-                    <dl>
-                        <dt>제목</dt>
-                        <dd><input type="text" placeholder="제목" value="제목입니다."></dd>
-                    </dl>
-                </div>
-                <!-- 글쓴이-비밀번호 입력 영역 -->
-                <div class="info">
-                    <dl>
-                        <dt>글쓴이</dt>
-                        <dd><input type="text" placeholder="글쓴이" value="이보람"></dd>
-                    </dl>
-                    <dl>
-                        <dt>비밀번호</dt>
-                        <dd><input type="password" placeholder="비밀번호" value=""></dd>
-                    </dl>
-                </div>
-                <!-- 글내용 입력 영역 -->
-                <div class="cont">
-                    <textarea placeholder="글내용">
-                        글 내용 입니다. 글 상세 내용입니다. <br>
-                        글 내용 입니다. 글 상세 내용입니다. <br>
-                        글 내용 입니다. 글 상세 내용입니다. <br>
-                        글 내용 입니다. 글 상세 내용입니다. <br>
-                        글 내용 입니다. 글 상세 내용입니다. <br>
-                        글 내용 입니다. 글 상세 내용입니다. <br>
-                        글 내용 입니다. 글 상세 내용입니다. <br>
-                    </textarea>
-                </div>
-            </div>
-            
-            <!-- 저장/목록이동 버튼 표시 영역 -->
-            <div class="bt_wrap">
-                <a href="./view.html" class="on">수정</a>
-                <a href="./list.html">취소</a>
-            </div>
+        <!-- 저장/목록이동 버튼 표시 영역 -->
+        <div class="bt_wrap">
+          <a href="#" class="on" onclick="fnArticleModify()">수정</a>
+          <a href="./list.html">취소</a>
         </div>
+      </div>
     </div>
 
-</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+    <script>
+      // 현재 웹페이지의 주소에서 전달되는 쿼리스트링 키의 값을 추출하는 함수정의
+      function getQueryString(keyName) {
+        var results = new RegExp("[\?&]" + keyName + "=([^&#]*)").exec(
+          window.location.href
+        );
+        return results[1] || 0;
+      }
+
+      // URL에서 전달된 게시글 고유키값 조회하기
+      var articleIdx = getQueryString("adix");
+
+      $(document).ready(function () {
+        $.get(
+          "http://localhost:3000/api/article?idx=" + articleIdx,
+          function (article) {
+            console.log(
+              "백엔드에서 조회된 단일 게시글 데이터 출력하기:",
+              article
+            );
+
+            $("#title").val(article.Title);
+            $("#writer").val(article.RegistUserID);
+            $("#password").val("");
+            $("#contents").val(article.Contents);
+          }
+        );
+      });
+
+      // 수정페이지 이동처리 함수
+      function fnMoveModify() {
+        location.href = "./edit.html?aidx=" + articleIdx;
+      }
+
+      // 유효성 검사 처리함수
+      function fnArticleModify() {
+        if ($("#title").val() == "") {
+          alert("제목을 입력해주세요.");
+          $("#title").focus();
+          return false;
+        }
+
+        if ($("#writer").val() == "") {
+          alert("작성자명을 입력해주세요.");
+          $("#writer").focus();
+          return false;
+        }
+
+        if ($("#password").val() == "") {
+          alert("글 암호를 입력해주세요.");
+          $("#password").focus();
+          return false;
+        }
+
+        var article = {
+          ArticleIDX: articleIdx,
+          BoardIDX: 0,
+          ArticlePWD: $("#password").val(),
+          ArticleTypeCode: 0,
+          Title: $("#title").val(),
+          Contents: $("#contents").val(),
+          ViewCount: 0,
+          IsDisplayYN: 1,
+          RegistUserID: $("#writer").val(),
+          RegistDate: "2023-03-31",
+        };
+
+        //게시글 수정 API 호출하기
+        $.post("http://localhost:3000/api/article/update", article).done(
+          function (result) {
+            alert("수정완료");
+            location.href = "./list.html";
+          }
+        );
+      }
+    </script>
+  </body>
 </html>
