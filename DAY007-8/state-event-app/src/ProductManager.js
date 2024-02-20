@@ -104,7 +104,7 @@ const ProductManager = () => {
                             <td>{pro.manufacturer}</td>
                             <td>
                                 <button onClick={() => handleSelect(pro)}>선택</button>
-                                <button onClick={() => handleRemove(pro)}>삭제</button>
+                                <button onClick={() => handleRemove(pro, i)}>삭제</button>
                             </td>
                         </tr>
                     ))}
