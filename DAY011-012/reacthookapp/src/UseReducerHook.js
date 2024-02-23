@@ -33,6 +33,7 @@ const UseReducerHook = () => {
             <h1>UseReducer훅 개발 샘플</h1>
 
             <h3>카운터:{count}</h3>
+            {/* 버튼 클릭 시 dispatchCount를 사용하여 액션을 전달하고, countReducer에서 정의한 로직에 따라 상태가 변경된다 */}
             <button onClick={() => dispatchCount({ type: 'INCREASE' })}>증가</button>
             <button onClick={() => dispatchCount({ type: 'DECREASE' })}>감소</button>
             <button onClick={() => dispatchCount({ type: 'INIT' })}>초기화</button>
