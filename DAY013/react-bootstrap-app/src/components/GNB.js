@@ -22,6 +22,21 @@ const GNB = () => {
                                 Sign up
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/article/list">
+                                ArticleList
+                            </Link>
+                        </li>
+                        {/* <li className="nav-item">
+                            <Link className="nav-link" to="/article/regist">
+                                ArticleRegist
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/article/detail">
+                                ArticleRegist
+                            </Link>
+                        </li> */}
                     </ul>
                 </div>
             </div>

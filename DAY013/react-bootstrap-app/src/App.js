@@ -1,5 +1,7 @@
 import React from 'react'
 
+// import './App.css'
+
 // bootstrap css 파일 직접 참조하기
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 // bootstrap css Sass(scss)파일을 직접 참조하고 css번들링을 통해 부트스트랩.css 파일 생성해서 사용하기
@@ -14,10 +16,13 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Footer from './components/Footer'
 import GNB from './components/GNB'
 
+// Pages Layout
 import Login from './pages/Login'
 import Register from './pages/Register'
-
 import Main from './pages/Main'
+import ArticleList from './pages/ArticleList'
+import ArticleRegist from './pages/ArticleRegist'
+import ArticleDetail from './pages/ArticleDetail'
 
 function App() {
     return (
@@ -35,6 +40,10 @@ function App() {
                             <Route path="/" Component={Main}></Route>
                             <Route path="/signin" Component={Login}></Route>
                             <Route path="/signup" Component={Register}></Route>
+
+                            <Route path="/article/list" Component={ArticleList}></Route>
+                            <Route path="/article/regist" Component={ArticleRegist}></Route>
+                            <Route path="/article/detail" Component={ArticleDetail}></Route>
                         </Routes>
                     </div>
                 </div>
