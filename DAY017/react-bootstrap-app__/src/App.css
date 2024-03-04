@@ -1,0 +1,8 @@
+/* ArticleList */
+.btn {
+    display: block;
+    width: max-content;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
