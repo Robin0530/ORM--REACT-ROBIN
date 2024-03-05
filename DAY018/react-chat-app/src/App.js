@@ -1,24 +1,14 @@
-import logo from './logo.svg'
-import './App.css'
+import React from 'react';
 
-import AuthLayout from '../src/layouts/AuthLayout'
-import NonAuthLayout from '../src/layouts/NonAuthLayout'
-import Code from '../src/pages/auth/Code'
-import Login from '../src/pages/auth/Login'
-import Logout from '../src/pages/auth/Logout'
-import Register from '../src/pages/auth/Register'
+//메인 라우팅 파일을 참조한다.
+import Routes from './routes';
+
+//웹퍼블리싱 템플릿에서 제공되는 스타일파일 참조
+import "./assets/scss/themes.scss";
+
 
 function App() {
-    return (
-        <div className="App">
-            <AuthLayout></AuthLayout>
-            <NonAuthLayout></NonAuthLayout>
-            <Code></Code>
-            <Login></Login>
-            <Logout></Logout>
-            <Register></Register>
-        </div>
-    )
+  return (<Routes/>);
 }
 
-export default App
+export default App;

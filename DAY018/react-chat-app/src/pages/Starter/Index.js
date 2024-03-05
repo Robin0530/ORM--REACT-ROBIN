@@ -1,11 +1,13 @@
-import React from 'react'
+import React from "react";
 
-const index = () => {
-    return (
-        <div>
-            <h1>페이지 샘플</h1>
-        </div>
-    )
-}
+const Index = () => {
+  document.title = "샘플 페이지";
 
-export default index
+  return (
+    <div>
+      <h1>페이지 샘플</h1>
+    </div>
+  );
+};
+
+export default Index;
