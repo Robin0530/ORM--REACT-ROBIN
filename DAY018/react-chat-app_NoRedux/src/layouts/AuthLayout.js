@@ -7,7 +7,7 @@ const AuthLayout = (props) => {
   return (
     <React.Fragment>
       <div className="layout-wrapper d-lg-flex">
-        {/* 좌측 채팅 좌측 메뉴바 영역  */}
+        {/* 최좌측 채팅 좌측 메뉴바 영역  */}
         <LeftSidebarMenu />
 
         {/* 각종 인증된 페이지 컴포넌트 출력영역-dashboard,start */}
