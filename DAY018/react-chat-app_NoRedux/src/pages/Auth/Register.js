@@ -60,6 +60,7 @@ const Register = () => {
                     console.log('회원가입 처리 결과 반환값:', res.data)
 
                     // 로그인 페이지로 자동이동처리하기
+                    alert('회원가입성공')
                     navigate('/login')
                 })
                 .catch((err) => {
