@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import axios from 'axios';
+import React, { useEffect } from 'react';
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import {
   Container,
   Row,
@@ -18,11 +19,11 @@ import {
   FormFeedback,
   Label,
   InputGroup,
-} from "reactstrap";
+} from 'reactstrap';
 
 //Import Images
-import logodark from "../../assets/images/logo-dark.png";
-import logolight from "../../assets/images/logo-light.png";
+import logodark from '../../assets/images/logo-dark.png';
+import logolight from '../../assets/images/logo-light.png';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -30,61 +31,69 @@ const Register = () => {
   //폼 유효성검사 및 폼데이터처리
   const formik = useFormik({
     initialValues: {
-      username: "",
-      email: "",
-      password: "",
+      username: '',
+      email: '',
+      password: '',
     },
     validationSchema: Yup.object({
-      username: Yup.string().required("Please Input UserName"),
+      username: Yup.string().required('Please Input UserName'),
       email: Yup.string()
-        .email("Enter proper email")
-        .required("Please Enter Your Email"),
-      password: Yup.string().required("Please Enter Your Password"),
+        .email('Enter proper email')
+        .required('Please Enter Your Email'),
+      password: Yup.string().required('Please Enter Your Password'),
     }),
-    onSubmit: (values) => {
+    onSubmit: values => {
       //props.loginUser(values.email, values.password, props.router.navigate);
 
-      //회원가입 처리 axios 기능 구현하기
       var memberData = {
         email: values.email,
         name: values.username,
         password: values.password,
       };
+
+      axios
+        .post('http://localhost:3005/api/member/entry', memberData)
+        .then(response => {
+          navigate('/login');
+        })
+        .catch(error => {});
+
+      //회원가입 처리 axios 기능 구현하기
     },
   });
 
-  document.title = "신규 회원가입 페이지";
+  document.title = '신규 회원가입 페이지';
 
   return (
     <React.Fragment>
-      <div className="account-pages my-5 pt-sm-5">
+      <div className='account-pages my-5 pt-sm-5'>
         <Container>
-          <Row className="justify-content-center">
+          <Row className='justify-content-center'>
             <Col md={8} lg={6} xl={5}>
-              <div className="text-center mb-4">
-                <Link to="/" className="auth-logo mb-5 d-block">
+              <div className='text-center mb-4'>
+                <Link to='/' className='auth-logo mb-5 d-block'>
                   <img
                     src={logodark}
-                    alt=""
-                    height="30"
-                    className="logo logo-dark"
+                    alt=''
+                    height='30'
+                    className='logo logo-dark'
                   />
                   <img
                     src={logolight}
-                    alt=""
-                    height="30"
-                    className="logo logo-light"
+                    alt=''
+                    height='30'
+                    className='logo logo-light'
                   />
                 </Link>
 
                 <h4>Register</h4>
-                <p className="text-muted mb-4">Get your Chatvia account now.</p>
+                <p className='text-muted mb-4'>Get your Chatvia account now.</p>
               </div>
 
               <Card>
-                <CardBody className="p-4">
+                <CardBody className='p-4'>
                   <Form
-                    onSubmit={(e) => {
+                    onSubmit={e => {
                       e.preventDefault();
                       formik.handleSubmit();
                       // return false;
@@ -102,18 +111,18 @@ const Register = () => {
                                             </Alert>
                                         ) : null} */}
 
-                    <div className="mb-3">
-                      <Label className="form-label">Email</Label>
-                      <InputGroup className="input-group bg-soft-light rounded-3 mb-3">
-                        <span className="input-group-text text-muted">
-                          <i className="ri-mail-line"></i>
+                    <div className='mb-3'>
+                      <Label className='form-label'>Email</Label>
+                      <InputGroup className='input-group bg-soft-light rounded-3 mb-3'>
+                        <span className='input-group-text text-muted'>
+                          <i className='ri-mail-line'></i>
                         </span>
                         <Input
-                          type="text"
-                          id="email"
-                          name="email"
-                          className="form-control form-control-lg bg-soft-light border-light"
-                          placeholder="Enter Email"
+                          type='text'
+                          id='email'
+                          name='email'
+                          className='form-control form-control-lg bg-soft-light border-light'
+                          placeholder='Enter Email'
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.email}
@@ -124,25 +133,25 @@ const Register = () => {
                           }
                         />
                         {formik.touched.email && formik.errors.email ? (
-                          <FormFeedback type="invalid">
+                          <FormFeedback type='invalid'>
                             {formik.errors.email}
                           </FormFeedback>
                         ) : null}
                       </InputGroup>
                     </div>
 
-                    <div className="mb-3">
-                      <Label className="form-label">Username</Label>
-                      <InputGroup className="mb-3 bg-soft-light input-group-lg rounded-lg">
-                        <span className="input-group-text border-light text-muted">
-                          <i className="ri-user-2-line"></i>
+                    <div className='mb-3'>
+                      <Label className='form-label'>Username</Label>
+                      <InputGroup className='mb-3 bg-soft-light input-group-lg rounded-lg'>
+                        <span className='input-group-text border-light text-muted'>
+                          <i className='ri-user-2-line'></i>
                         </span>
                         <Input
-                          type="text"
-                          id="username"
-                          name="username"
-                          className="form-control form-control-lg bg-soft-light border-light"
-                          placeholder="Enter Username"
+                          type='text'
+                          id='username'
+                          name='username'
+                          className='form-control form-control-lg bg-soft-light border-light'
+                          placeholder='Enter Username'
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.username}
@@ -153,25 +162,25 @@ const Register = () => {
                           }
                         />
                         {formik.touched.username && formik.errors.username ? (
-                          <FormFeedback type="invalid">
+                          <FormFeedback type='invalid'>
                             {formik.errors.username}
                           </FormFeedback>
                         ) : null}
                       </InputGroup>
                     </div>
 
-                    <FormGroup className="mb-4">
-                      <Label className="form-label">Password</Label>
-                      <InputGroup className="mb-3 bg-soft-light input-group-lg rounded-lg">
-                        <span className="input-group-text border-light text-muted">
-                          <i className="ri-lock-2-line"></i>
+                    <FormGroup className='mb-4'>
+                      <Label className='form-label'>Password</Label>
+                      <InputGroup className='mb-3 bg-soft-light input-group-lg rounded-lg'>
+                        <span className='input-group-text border-light text-muted'>
+                          <i className='ri-lock-2-line'></i>
                         </span>
                         <Input
-                          type="password"
-                          id="password"
-                          name="password"
-                          className="form-control form-control-lg bg-soft-light border-light"
-                          placeholder="Enter Password"
+                          type='password'
+                          id='password'
+                          name='password'
+                          className='form-control form-control-lg bg-soft-light border-light'
+                          placeholder='Enter Password'
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.password}
@@ -182,28 +191,28 @@ const Register = () => {
                           }
                         />
                         {formik.touched.password && formik.errors.password ? (
-                          <FormFeedback type="invalid">
+                          <FormFeedback type='invalid'>
                             {formik.errors.password}
                           </FormFeedback>
                         ) : null}
                       </InputGroup>
                     </FormGroup>
 
-                    <div className="d-grid">
+                    <div className='d-grid'>
                       <Button
-                        color="primary"
+                        color='primary'
                         block
-                        className=" waves-effect waves-light"
-                        type="submit"
+                        className=' waves-effect waves-light'
+                        type='submit'
                       >
                         Register
                       </Button>
                     </div>
 
-                    <div className="mt-4 text-center">
-                      <p className="text-muted mb-0">
+                    <div className='mt-4 text-center'>
+                      <p className='text-muted mb-0'>
                         By registering you agree to the Chatvia
-                        <Link to="#" className="text-primary">
+                        <Link to='#' className='text-primary'>
                           Terms of Use
                         </Link>
                       </p>
@@ -212,16 +221,16 @@ const Register = () => {
                 </CardBody>
               </Card>
 
-              <div className="mt-5 text-center">
+              <div className='mt-5 text-center'>
                 <p>
-                  Already have an account?{" "}
-                  <Link to="/login" className="font-weight-medium text-primary">
-                    Signin{" "}
-                  </Link>{" "}
+                  Already have an account?{' '}
+                  <Link to='/login' className='font-weight-medium text-primary'>
+                    Signin{' '}
+                  </Link>{' '}
                 </p>
                 <p>
                   © {new Date().getFullYear()} hatvia. Crafted with
-                  <i className="mdi mdi-heart text-danger"></i> by Themesbrand
+                  <i className='mdi mdi-heart text-danger'></i> by Themesbrand
                 </p>
               </div>
             </Col>

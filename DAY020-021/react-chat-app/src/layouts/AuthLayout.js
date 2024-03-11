@@ -10,7 +10,6 @@ const AuthLayout = (props) => {
         {/* 최좌측 채팅 좌측 메뉴바 영역  */}
         <LeftSidebarMenu />
 
-        {/* 각종 인증된 페이지 컴포넌트 출력영역-dashboard,start */}
         {props.children}
       </div>
     </React.Fragment>

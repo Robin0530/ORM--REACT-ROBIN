@@ -1,4 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+import { useSelector } from "react-redux";
+
+// axios
+import axios from "axios";
 
 import {
   Dropdown,
@@ -14,38 +19,30 @@ import CustomCollapse from "../../../components/CustomCollapse";
 //Import Images
 import avatar1 from "../../../assets/images/users/avatar-1.jpg";
 
-// 훅 추가 24.03.08
-import { useSelector } from "react-redux";
-import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-
 const Profile = (props) => {
   //현재 로그이한 사용자의 정보를 저장하기위한 사용자 상태값 정의
   const [user, setUser] = useState({});
 
-  // 전역데이터 토큰
-  // const token = useSelector((state) => state.Auth.token);
-  // 리덕스 스토어
-  const loginUser = useSelector((state) => state.Auth.loginUser);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3005/api/member/profile")
-      // .get("http://localhost:3005/api/member/profile", {
-      //   headers: { Authorization: `Bearer ${token}` },
-      // })
-      .then((res) => {
-        console.log("사용자 정보출력", res.data.data);
-        setUser(res.data.data);
-      })
-      .catch((err) => {
-        console.error("토큰에러", err);
-      });
-  }, []);
+  // token
+  const token = useSelector((state) => state.Auth.token);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isOpen1, setIsOpen1] = useState(true);
   const [isOpen2, setIsOpen2] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3005/api/member/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        setUser(res.data.data);
+      })
+      .catch((err) => {
+        console.error("백엔드 에러", err);
+      });
+  }, []);
 
   const toggleCollapse1 = () => {
     setIsOpen1(!isOpen1);
@@ -60,7 +57,7 @@ const Profile = (props) => {
   const toggle = () => setDropdownOpen(!dropdownOpen);
 
   return (
-    <React.Fragment>
+    <>
       <div>
         <div className="px-4 pt-4">
           <div className="user-chat-nav float-end">
@@ -85,7 +82,7 @@ const Profile = (props) => {
         <div className="text-center p-4 border-bottom">
           <div className="mb-4">
             <img
-              src={avatar1}
+              // src={user.profile_img_path || avatar1}
               className="rounded-circle avatar-lg img-thumbnail"
               alt="chatvia"
             />
@@ -128,13 +125,13 @@ const Profile = (props) => {
                 </div>
 
                 <div className="mt-4">
-                  <p className="text-muted mb-1">RegDate</p>
-                  <h5 className="font-size-14">{user.reg_date}</h5>
+                  <p className="text-muted mb-1">Time</p>
+                  <h5 className="font-size-14">11:40 AM</h5>
                 </div>
 
                 <div className="mt-4">
                   <p className="text-muted mb-1">Location</p>
-                  <h5 className="font-size-14 mb-0">대한민국, 인천</h5>
+                  <h5 className="font-size-14 mb-0">California, USA</h5>
                 </div>
               </CustomCollapse>
             </Card>
@@ -146,7 +143,7 @@ const Profile = (props) => {
         </div>
         {/* end user-profile-desc  */}
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

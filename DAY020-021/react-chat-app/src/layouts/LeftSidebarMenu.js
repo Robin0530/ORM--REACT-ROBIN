@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { setActiveTab } from "../redux/actions";
 import {
   Nav,
   NavItem,
@@ -12,9 +15,6 @@ import {
   DropdownMenu,
 } from "reactstrap";
 
-//yarn add classnames
-//조건부 스타일을 줄때 classNames 라이브러리 사용
-//https://chanhuiseok.github.io/posts/react-14/
 import classnames from "classnames";
 
 import logo from "../assets/images/logo.svg";
@@ -40,7 +40,7 @@ const LeftSidebarMenu = (props) => {
   //좌측 메뉴 선택시 선택 탭정보 전역상태 반영
   const toggleTab = (tab) => {
     //props를 통해 직접 액션함수를 호출해서 사용할수 있다.-dispatch훅을 이용하지 않고 사용하는 방법
-    //props.setActiveTab(tab);
+    props.setActiveTab(tab);
   };
 
   //LayOut 전역상태내의 activeTab 전역상태값을 props에서 추출하여 현재의  전역상태내 activeTab 값을 추출한다.
@@ -181,8 +181,7 @@ const LeftSidebarMenu = (props) => {
                   <i className="ri-settings-3-line float-end text-muted"></i>
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem href="/login">
-                  {/* <DropdownItem href="/logout"> */}
+                <DropdownItem href="/logout">
                   Log out{" "}
                   <i className="ri-logout-circle-r-line float-end text-muted"></i>
                 </DropdownItem>
@@ -249,8 +248,7 @@ const LeftSidebarMenu = (props) => {
                   <i className="ri-settings-3-line float-end text-muted"></i>
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem href="/login">
-                  {/* <DropdownItem href="/logout"> */}
+                <DropdownItem href="/logout">
                   Log out{" "}
                   <i className="ri-logout-circle-r-line float-end text-muted"></i>
                 </DropdownItem>
@@ -264,4 +262,11 @@ const LeftSidebarMenu = (props) => {
   );
 };
 
+// const mapStateToProps = (state) => {
+//   return {
+//     ...state.Layout,
+//   };
+// };
+
+// export default connect(mapStateToProps, { setActiveTab })(LeftSidebarMenu);
 export default LeftSidebarMenu;

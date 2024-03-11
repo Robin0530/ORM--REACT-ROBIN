@@ -5,11 +5,11 @@ import { all, call, fork, put, takeEvery } from 'redux-saga/effects'
 import { APIClient } from '../../helpers/apiClient'
 
 // 액션 타입을 참조합니다.
-import { loginUser, apiError } from '../../constants/actionTypes'
+import { LOGIN_USER, API_FAILED } from '../../constants/actionTypes'
 
 // 액션 함수를 참조합니다.
 // 회원로그인 처리 액션함수를 참조합니다.
-import { LOGIN_USER, API_FAILED } from '../actions'
+import { loginUser, apiError, userLogin } from '../actions'
 
 // 백엔드 RESTFul 통신을 위한 APIClient post메소드 (create()) 함수 생성하기
 const create = new APIClient().create()
@@ -19,6 +19,8 @@ const create = new APIClient().create()
 function* login({ payload: { email, password, navigate } }) {
     try {
         // call (백엔드호출함수지정)
+        console.log('login*', email, password, navigate)
+
         const response = yield call(create, 'api/member/login', { email, password })
 
         // 웹브라우저에서 로컬 스토리지 저장 : 옵션

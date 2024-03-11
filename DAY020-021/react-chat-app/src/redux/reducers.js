@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 
 // 리듀서 함수 참조
 import Auth from "./auth/reducer";
+// import Layout from "./layout/reducer";
 
 // combineReducers를 이용해 각종 리듀서함수를 통합해줍니다.
-export default combineReducers(Auth);
+export default combineReducers({ Auth });

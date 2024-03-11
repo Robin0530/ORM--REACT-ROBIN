@@ -1,13 +1,12 @@
-// 액션타입 참조
 import { USER_LOGIN } from "../../constants/actionTypes";
+import moment from "moment";
+import { INIT_STATE } from "./reducer";
 
-// 초기값
-const INIT_STATE = {
-  token: "",
-  loginUser: {},
-};
-
-const Auth = (state = INIT_STATE, action) => {
+// 리듀서 함수
+export const Auth = (state = INIT_STATE, action) => {
+  action.payload.loginUser.reg_date = moment(
+    action.payload.loginUser.reg_date
+  ).format("YYYY-MM-DD hh:mm");
   switch (action.type) {
     case USER_LOGIN:
       return {
@@ -19,5 +18,3 @@ const Auth = (state = INIT_STATE, action) => {
       return { ...state };
   }
 };
-
-export default Auth;
