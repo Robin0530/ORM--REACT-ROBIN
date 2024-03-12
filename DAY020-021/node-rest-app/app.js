@@ -21,6 +21,9 @@ var articleAPIRouter = require('./routes/articleAPI')
 // 회원정보 데이터 처리 전용 RESTAPI 라우터 참조
 var memberAPIRouter = require('./routes/memberAPI')
 
+// 채팅 처리 전용 RESTAPI 라우터 참조
+var chatAPIRouter = require('./routes/chatAPI.js.js')
+
 var app = express()
 
 // MYSQL과 자동 연결 처리 및 모델 기반 물리 테이블 생성 처리 제공
@@ -47,6 +50,10 @@ app.use('/api', articleAPIRouter)
 // 회원정보처리 전용 RESTAPI라우터의 기본호출주소 체계 정의
 // http://localhost:3005/api/member
 app.use('/api/member', memberAPIRouter)
+
+// chat 라우팅 기본주소 설정
+// http://localhost:3005/api/chat
+app.use('/api/chat', chatAPIRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

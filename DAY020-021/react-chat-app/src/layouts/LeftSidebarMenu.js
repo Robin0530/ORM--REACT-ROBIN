@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
-import { connect, useDispatch, useSelector } from "react-redux";
+// 추가참조
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-
+// 리덕스 액션함수 참조하기
 import { setActiveTab } from "../redux/actions";
+
 import {
   Nav,
   NavItem,
@@ -85,9 +87,11 @@ const LeftSidebarMenu = (props) => {
                 <i className="ri-user-2-line"></i>
               </NavLink>
             </NavItem>
+
             <UncontrolledTooltip target="profile" placement="top">
               Profile
             </UncontrolledTooltip>
+
             <NavItem id="Chats">
               <NavLink
                 id="pills-chat-tab"
@@ -101,9 +105,11 @@ const LeftSidebarMenu = (props) => {
                 <i className="ri-message-3-line"></i>
               </NavLink>
             </NavItem>
+
             <UncontrolledTooltip target="Chats" placement="top">
               Chats
             </UncontrolledTooltip>
+
             <NavItem id="Groups">
               <NavLink
                 id="pills-groups-tab"
@@ -117,6 +123,7 @@ const LeftSidebarMenu = (props) => {
                 <i className="ri-group-line"></i>
               </NavLink>
             </NavItem>
+
             <UncontrolledTooltip target="Groups" placement="top">
               Groups
             </UncontrolledTooltip>
@@ -136,6 +143,7 @@ const LeftSidebarMenu = (props) => {
             <UncontrolledTooltip target="Contacts" placement="top">
               Contacts
             </UncontrolledTooltip>
+
             <NavItem id="Settings">
               <NavLink
                 id="pills-setting-tab"
@@ -268,5 +276,6 @@ const LeftSidebarMenu = (props) => {
 //   };
 // };
 
-// export default connect(mapStateToProps, { setActiveTab })(LeftSidebarMenu);
-export default LeftSidebarMenu;
+// connect(전역데이터속성을 props하위속성으로 넣어주는 함수호출, {props의 하위함수로 액션함수를 추가해주는 설정})
+export default connect(null, { setActiveTab })(LeftSidebarMenu);
+// export default LeftSidebarMenu;
