@@ -185,4 +185,8 @@ router.get('/profile', async (req, res) => {
     res.json(apiResult)
 })
 
+// 등록되어있는 멤버 조회 API 메소드
+// http:// localhost:3005/api/member/members
+router.get('/members', async (req, res) => {})
+
 module.exports = router

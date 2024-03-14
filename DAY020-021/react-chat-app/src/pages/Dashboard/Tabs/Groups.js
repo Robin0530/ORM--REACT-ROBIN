@@ -122,7 +122,7 @@ const Groups = () => {
             .get('http://localhost:3005/api/chat/channels')
             .then((res) => {
                 console.log('채널목록 조회 결과', res.data.data)
-                setConfig({ ...config, groups: res.data.data })
+                setConfig({ ...config, groups: res.data.data, modal: false })
             })
             .catch((err) => {
                 console.error('채널목록 조회 에러', err)
@@ -149,7 +149,7 @@ const Groups = () => {
     }
 
     // 신규 채팅방 그룹 추가하기
-    const onSaveGroup = () => {
+    const onSaveGroup = (e) => {
         // axios로 데이터 등록처리하기
         const groupData = {
             channel: {
@@ -164,8 +164,8 @@ const Groups = () => {
             .then((res) => {
                 console.log('신규채널 생성결과:', res.data)
                 if (res.data.code == '200') {
-                    setConfig({ ...config, modal: false })
                     getChannels()
+                    setConfig({ ...config, modal: !config.modal })
                 }
             })
             .catch((err) => {
