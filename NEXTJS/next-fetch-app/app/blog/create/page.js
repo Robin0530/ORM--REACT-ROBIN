@@ -2,11 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 
-// 게시글 등록이후 페이지 이동을 위한 navigate 참조하기
+// 게시글 등록이후 페이지 이동을 위한 navigate 참조
 import { useRouter } from "next/navigation";
 
 export default function BlogCreate() {
-  // navgate 객체
   const router = useRouter();
 
   const [article, setArticle] = useState({
@@ -34,14 +33,13 @@ export default function BlogCreate() {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       // fetch API 호출결과
       const result = await response.json();
       console.log("처리결과 데이터:", result);
 
-      // 특정 url페이지로 이동시ㅣ기
-      router.push("/blog/list");
       if (result.code == "200") {
+        // 특정 URL페이지로 이동
+        router.push("/blog/list");
       }
     };
 
@@ -50,10 +48,8 @@ export default function BlogCreate() {
       console.error("An error occurred while fetching the data: ", e);
     });
   };
-
   return (
     <div>
-      <h3>게시글 작성</h3>
       <form onSubmit={onBlogSubmit}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
@@ -75,7 +71,7 @@ export default function BlogCreate() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="first-name"
+                    name="title"
                     value={article.title}
                     onChange={onBlogChange}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -93,12 +89,11 @@ export default function BlogCreate() {
                 <div className="mt-2">
                   <textarea
                     id="about"
-                    name="about"
-                    rows={3}
+                    name="contents"
                     value={article.contents}
                     onChange={onBlogChange}
+                    rows={3}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    defaultValue={""}
                   />
                 </div>
               </div>
