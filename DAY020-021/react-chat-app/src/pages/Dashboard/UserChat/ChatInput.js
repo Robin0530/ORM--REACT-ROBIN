@@ -76,10 +76,10 @@ const ChatInput = (props) => {
 
             // 전역전송 데이터 준비
             var sendData = {
-                channel_id: 0,
-                member_id: 1,
-                name: 'test',
-                profile_url: '/test.png',
+                channel_id: props.currentChannel.channel_id,
+                member_id: props.loginUser.member_id,
+                name: props.loginUser.name,
+                profile_url: props.loginUser.profile_img_path,
                 message: textMessage,
             }
 
@@ -190,5 +190,11 @@ const ChatInput = (props) => {
     )
 }
 
+const mapStateToProps = (state) => {
+    const { sendMessage, currentChannel } = state.Chat
+    const { token, loginUser } = state.Auth
+    return { sendMessage, currentChannel, loginUser, token }
+}
+
 // export default ChatInput
-export default connect({ setSendMessage })(ChatInput)
+export default connect(mapStateToProps, { setSendMessage })(ChatInput)

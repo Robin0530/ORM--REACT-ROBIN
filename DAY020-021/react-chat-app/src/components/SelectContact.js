@@ -90,9 +90,10 @@ class SelectContact extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    const { contacts } = state.Chat
-    return { contacts }
-}
+// const mapStateToProps = (state) => {
+//     const { contacts } = state.Chat
+//     return { contacts }
+// }
 
-export default connect(mapStateToProps, {})(SelectContact)
+// export default connect(mapStateToProps, {})(SelectContact)
+export default SelectContact

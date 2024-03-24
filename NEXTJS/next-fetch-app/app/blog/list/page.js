@@ -39,7 +39,7 @@ export default function BlogList() {
     <div>
       <h3>블로그 목록</h3>
       <Link href="/blog/create">신규 게시글 작성</Link>
-      <table class="table-auto">
+      <table className="table-auto">
         <thead>
           <tr>
             <th>글제목</th>

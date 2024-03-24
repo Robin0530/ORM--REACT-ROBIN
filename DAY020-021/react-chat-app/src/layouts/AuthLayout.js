@@ -8,6 +8,7 @@ import { socket } from '../socket'
 
 //좌측 메뉴바 컴포넌트 참조
 import LeftSidebarMenu from './LeftSidebarMenu'
+import { setReceiveMessage } from '../redux/actions'
 
 const AuthLayout = (props) => {
     // 최초 한번 AuthLayout 컴포넌트가 렌더링될때 서버소켓과 연결처리하기
@@ -38,6 +39,14 @@ const AuthLayout = (props) => {
         // 서버소켓에서 보내주는 메시지를 수신하는 이벤트 핸들러 정의
         socket.on('reactReceive', (msg) => {
             console.log('reactReceive 이벤트 수신데이터 확인:', msg)
+            if (msg.channel_id > 0) {
+                props.setReceiveMessage(msg)
+            }
+        })
+
+        // 채팅방 입장완료 메시지 처리
+        socket.on('entryok', (msg) => {
+            console.log('채팅방 입장완료 ==>', msg)
         })
 
         // 소켓이 사용된 컴포넌트가 화면에서 사라지면 소켓에서 정의한 각종 이벤트 핸들러 함수도 제거해줘야 성능적으로 좋습니다.
@@ -46,14 +55,23 @@ const AuthLayout = (props) => {
             socket.off('connect')
             socket.off('disconnect')
             socket.off('reactReceive')
+            socket.off('entryok')
         }
     }, [])
 
     // 전역데이터속성 중 sendMassage 속성값이 바뀌면 자동으로 실행되는 기능정의하기
     useEffect(() => {
         // 서버로 사용자가 전송하는 메시지를 전송합니다.
-        socket.emit('reactSend', props.sendMessage)
+        if (props.sendMessage.channel_id > 0) {
+            socket.emit('reactSend', props.sendMessage)
+        }
     }, [props.sendMessage])
+
+    // 마이채널 선택 채팅 채널이 변경되면 채팅방 입장정리
+    useEffect(() => {
+        console.log('채팅방 채널로 입장합니다')
+        socket.emit('entry', props.currentChannel.channel_id, props.loginUser.member_id, props.loginUser.name)
+    }, [props.currentChannel])
 
     return (
         <React.Fragment>
@@ -69,9 +87,10 @@ const AuthLayout = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    const { sendMessage, receiveMessage } = state.Chat
-    return { sendMessage, receiveMessage }
+    const { token, loginUser } = state.Auth
+    const { sendMessage, receiveMessage, currentChannel } = state.Chat
+    return { token, loginUser, sendMessage, receiveMessage, currentChannel }
 }
 
 // export default AuthLayout
-export default connect(mapStateToProps)(AuthLayout)
+export default connect(mapStateToProps, { setReceiveMessage })(AuthLayout)

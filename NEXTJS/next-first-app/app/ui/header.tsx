@@ -8,8 +8,7 @@ export default function Header() {
     <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
       <div>
         <Link href="/">홈</Link> | <Link href="/regist">회원가입</Link> |
-        <Link href="/login">로그인</Link> |<Link href="/blog/list">블로깅</Link>{" "}
-        |<Link href="/blog/1">블로깅상세</Link> |
+        <Link href="/login">로그인</Link> |<Link href="/blog/list">블로깅</Link>
       </div>
       <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
         <a
